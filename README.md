@@ -3,7 +3,7 @@
 Some actually pretty good PaperMC OCI images.
 
 ![Finally some good food](https://64.media.tumblr.com/e02c5bfb47338a49e6e9228475869fc7/tumblr_pah89p3xWV1tn6k7ro1_1280.pnj)
--# (Art made by [midori-n](https://www.tumblr.com/midori-n) on Tumblr)
+<sub>(Art made by [midori-n](https://www.tumblr.com/midori-n) on Tumblr)</sub>
 
 These images are built based on Chainguard's
 [apko/melange](https://edu.chainguard.dev/open-source/build-tools/melange/getting-started-with-melange/)
