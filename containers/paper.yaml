@@ -1,0 +1,18 @@
+contents:
+  keyring:
+    - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    - ./melange.rsa.pub
+  repositories:
+    - https://packages.wolfi.dev/os
+    - '@local /work/packages'
+  packages:
+    - ca-certificates-bundle
+    - openjdk-21-default-jvm
+    - paper@local
+
+entrypoint:
+  command: /usr/bin/java -jar /usr/share/java/paper/paper-bundler-1.21.4-R0.1-SNAPSHOT-mojmap.jar
+
+archs:
+  - x86_64
+  # - aarch64
