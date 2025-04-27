@@ -5,12 +5,9 @@ package:
   description: Minecraft game server based on Spigot
   copyright:
     - license: GPL-3.0-only AND MIT
-  target-architecture:
-    - x86_64
-    # - aarch64
   dependencies:
     runtime:
-      - openjdk-21-jre
+      - openjdk-21-default-jvm
 
 environment:
   contents:
@@ -52,5 +49,4 @@ pipeline:
 
       install -Dm0644 ./LICENSE.md "${dest}/LICENSE"
       install -Dm0644 ./README.md "${dest}/README.md"
-      # build/libs instead of older than 1.24.1+
-      install -Dm0644 -t "${dest}" paper-server/build/libs/paper-*.jar
+      find . -iname "paper-*.jar" -exec install -Dm0644 -t "${dest}" {} ';'

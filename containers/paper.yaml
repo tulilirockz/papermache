@@ -7,12 +7,21 @@ contents:
     - '@local /work/packages'
   packages:
     - ca-certificates-bundle
-    - openjdk-21-default-jvm
     - paper@local
+    - findutils
+
+# This is meant to run with volumes, not binding directories
+accounts:
+  groups:
+    - groupname: nonroot
+      gid: 10000
+  users:
+    - username: nonroot
+      uid: 10000
+      shell: /bin/sh
+  run-as: nonroot
+
+work-dir: /data
 
 entrypoint:
-  command: /usr/bin/java -jar /usr/share/java/paper/paper-bundler-1.21.4-R0.1-SNAPSHOT-mojmap.jar
-
-archs:
-  - x86_64
-  # - aarch64
+  command: find /usr/share/java/paper/ -iname 'paper-bundler*.jar' -exec /usr/bin/java -jar {} ';'
