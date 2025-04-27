@@ -1,0 +1,10 @@
+services:
+  paper:
+    image: ghcr.io/tulilirockz/paper:1.24.1
+    ports:
+      - 25565:25565
+    volumes:
+      - minecraft:/data
+volumes:
+  minecraft:
+    external: true

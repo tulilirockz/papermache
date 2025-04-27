@@ -30,17 +30,25 @@ anything similar to this in the wild, so I made this project!
 ## Usage
 
 ```bash
-podman run --rm -it -v "your-server-volume:/data:Z" ghcr.io/tulilirockz/paper:1.24.1
-
+podman run --rm -it -v minecraft:/data:Z -p 25565:25565 ghcr.io/tulilirockz/paper:latest
 ```
 
 You can also use this as a compose:
 ```yaml
-blah:
-
+services:
+  paper:
+    image: ghcr.io/tulilirockz/paper:1.24.1
+    ports:
+      - 25565:25565
+    volumes:
+      - minecraft:/data
+volumes:
+  minecraft:
+    external: true
 ```
 
 ## Building locally
+
 ```bash
 just build (package)
 # This will also import the image to your storage if you want
