@@ -67,7 +67,7 @@ jobs:
 
       - name: Build Package and Container
         id: build_image
-        runs: |
+        run: |
           just build paper
           just build-container paper
           podman tag docker.io/library/paper:latest-$(arch) ${{ env.IMAGE_REGISTRY }}/${IMAGE_NAME}:${DEFAULT_TAG}
