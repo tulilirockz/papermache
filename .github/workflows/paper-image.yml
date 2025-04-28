@@ -80,9 +80,10 @@ jobs:
         env:
           PLATFORM: ${{ matrix.platform }}
         run: |
+          set -xeuo pipefail
           just build paper
           just build-container paper
-          podman tag docker.io/library/paper:latest-$PLATFORM ${{ env.IMAGE_REGISTRY }}/${IMAGE_NAME}:${DEFAULT_TAG}
+          podman tag docker.io/library/paper:latest-$PLATFORM ${{ env.IMAGE_REGISTRY }}/${IMAGE_NAME}:${DEFAULT_TAG}-${PLATFORM}
 
       - name: Login to GHCR
         if: github.event_name != 'pull_request'
