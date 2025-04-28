@@ -30,11 +30,9 @@ concurrency:
 
 jobs:
   build:
-    uses: ${{ github.workspace }}/.github/workflows/reusable-image.yml
+    uses: ./.github/workflows/reusable-image.yml
     secrets: inherit
     with:
       image-name: paper
       image-desc: Paper MC images built for supply chain security
       default-tag: 1.21.4
-
-
