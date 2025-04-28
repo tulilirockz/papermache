@@ -1,0 +1,40 @@
+name: Build Paper image
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'containers/paper*'
+      - 'packages/paper*'
+  push:
+    branches:
+      - main
+    paths:
+      - 'containers/paper*'
+      - 'packages/paper*'
+  schedule:
+    - cron: '0 0 * * TUE'
+
+env:
+  IMAGE_NAME: paper
+  IMAGE_DESC: "Paper MC images built for supply chain security"
+  IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"
+  DEFAULT_TAG: "1.24.1"
+  PLATFORMS: "amd64,arm64"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    uses: ./.github/workflows/reusable-build-image.yml
+    secrets: inherit
+    with:
+      image-name: paper
+      image-desc: Paper MC images built for supply chain security
+      default-tag: 1.21.4
+
+

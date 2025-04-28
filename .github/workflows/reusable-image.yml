@@ -1,27 +1,35 @@
-name: Build Paper containers
+name: Build Image
 on:
-  workflow_dispatch: # allow manually triggering builds
-  pull_request:
-    branches:
-      - main
-    paths:
-      - 'containers/paper*'
-      - 'packages/paper*'
-  push:
-    branches:
-      - main
-    paths:
-      - 'containers/paper*'
-      - 'packages/paper*'
-  schedule:
-    - cron: '0 0 * * TUE'
+  workflow_call:
+    inputs:
+      image-name:
+        description: "The name of the image to build"
+        required: true
+        type: string
+      image-desc:
+        description: "The description of the image to build"
+        required: true
+        type: string
+      platforms:
+        description: "The platforms to build the image for"
+        required: false
+        type: string
+        default: "amd64,arm64"
+      default-tag:
+        description: "Default tag to be used for MC version"
+        required: true
+        type: string
+    secrets:
+      SIGNING_SECRET:
+        description: "The private key used to sign the image"
+        required: false
 
 env:
-  IMAGE_NAME: paper
-  IMAGE_DESC: "Paper MC images built for supply chain security"
+  IMAGE_NAME: ${{ inputs.image-name }}
+  IMAGE_DESC: ${{ inputs.image-desc }}
   IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"
-  DEFAULT_TAG: "1.24.1"
-  PLATFORMS: "amd64,arm64"
+  DEFAULT_TAG: ${{ inputs.default-tag }}
+  PLATFORMS: ${{ inputs.platforms }}
 
 jobs:
   generate_matrix:
@@ -81,9 +89,9 @@ jobs:
           PLATFORM: ${{ matrix.platform }}
         run: |
           set -xeuo pipefail
-          just build paper
-          just build-container paper
-          podman tag docker.io/library/paper:latest-$PLATFORM ${{ env.IMAGE_REGISTRY }}/${IMAGE_NAME}:${DEFAULT_TAG}-${PLATFORM}
+          just build "${IMAGE_NAME}"
+          just build-container "${IMAGE_NAME}"
+          podman tag "docker.io/library/${IMAGE_NAME}:latest-${PLATFORM}" "${IMAGE_REGISTRY}/${IMAGE_NAME}:${DEFAULT_TAG}-${PLATFORM}"
 
       - name: Login to GHCR
         if: github.event_name != 'pull_request'

@@ -87,7 +87,7 @@ cosign verify-attestation \
   "ghcr.io/tulilirockz/paper:latest" | jq -r .payload | base64 -d | jq .predicate > ./paper-sbom.yaml
 ```
 
-### Scanning for Vulnerabilities / Verifying contets
+### Scanning for Vulnerabilities and Verifying contents
 
 [Grype](https://github.com/anchore/grype) and [Dive](https://github.com/wagoodman/dive)
 are great tools for verifying what you got is safe

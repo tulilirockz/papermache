@@ -29,7 +29,6 @@ pipeline:
   - uses: git-checkout
     with:
       repository: https://github.com/PaperMC/Paper.git
-      # repository: https://github.com/PaperMC/Paper-archive.git
       tag: ${{ package.version }}
       expected-commit: 0767902699165a1cdb1977f555acbd8245de7c47
 
@@ -49,4 +48,4 @@ pipeline:
 
       install -Dm0644 ./LICENSE.md "${dest}/LICENSE"
       install -Dm0644 ./README.md "${dest}/README.md"
-      find . -iname "paper-*.jar" -exec install -Dm0644 -t "${dest}" {} ';'
+      find . -iname "${{package.name}}-*.jar" -exec install -Dm0644 -t "${dest}" {} ';'

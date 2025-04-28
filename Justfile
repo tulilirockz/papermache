@@ -12,3 +12,8 @@ build-container $package="" $import="1":
     if [ "${import}" == "1" ] ; then
         podman load < "${package}.tar"
     fi
+
+renovate:
+    #!/usr/bin/env bash
+    GITHUB_COM_TOKEN=$(cat ~/.ssh/gh_renovate) LOG_LEVEL=${LOG_LEVEL:-debug} renovate --platform=local
+    
