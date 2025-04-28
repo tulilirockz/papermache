@@ -205,6 +205,7 @@ jobs:
         with:
           tags: |
             type=raw,value=latest
+            type=raw,value=${{ env.DEFAULT_TAG }}
             type=ref,event=pr
           labels: |
             io.artifacthub.package.readme-url=https://raw.githubusercontent.com/${{ github.repository_owner }}/papermache/refs/heads/main/README.md
