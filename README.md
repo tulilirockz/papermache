@@ -105,3 +105,7 @@ dive ghcr.io/tulilirockz/paper:latest
 
 This project is not affiliated with Mojang, Microsoft, Chainguard, Oracle and
 is redistributed following the Apache 2.0 license with no warranty or liability
+
+The cute birb on the logo is made by
+[EfthimiaPapierMache](https://www.etsy.com/shop/EfthimiaPapierMache) on Etsy!
+Check them out!
