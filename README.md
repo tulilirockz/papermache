@@ -30,9 +30,7 @@ anything similar to this in the wild, so I made this project!
 ## TODO
 - [ ] Templating for multiple PaperMC versions
 - [ ] Folia package
-- [ ] Publish SBOMs
-- [ ] Publish Licenses w/ Grype
-- [ ] Publish trivvy analytics
+- [ ] Use Renovate for everything
 
 ## Usage
 
@@ -59,6 +57,48 @@ volumes:
 just build (package)
 # This will also import the image to your storage if you want
 just build-container (package) # (import or not w/ 1/0)
+```
+
+## Verifying authenticity
+
+Our claims about security don't make sense at all if you cant verify them.
+Here are a few methods:
+
+### Cosign Key
+
+This way you can actually know if I made this image or not.
+Allows you to know if the image has been tampered with
+
+```bash
+cosign verify \
+ --key https://raw.githubusercontent.com/tulilirockz/papermache/refs/heads/main/cosign.pub \
+  "ghcr.io/tulilirockz/paper:latest"
+```
+
+### Fetch SBOM
+
+This returns you the [Software Bill of Materials](https://www.cisa.gov/sbom)
+for these images, a list of pretty much everything in it.
+
+```bash
+cosign verify-attestation \
+  --key https://raw.githubusercontent.com/tulilirockz/papermache/refs/heads/main/cosign.pub \
+  --type https://spdx.dev/Document \
+  "ghcr.io/tulilirockz/paper:latest" | jq -r .payload | base64 -d | jq .predicate > ./paper-sbom.yaml
+```
+
+### Scanning for Vulnerabilities / Verifying contets
+
+[Grype](https://github.com/anchore/grype) and [Dive](https://github.com/wagoodman/dive)
+are great tools for verifying what you got is safe
+
+```bash
+# This will analyze the image and check for vulnerabilities
+# Any vulnerability here is a combination of Wolfi's vulnerabilities, openJDKs, and PaperMCs
+grype ghcr.io/tulilirockz/paper:latest
+
+# This allows you to know what even is on the image, before executing
+dive ghcr.io/tulilirockz/paper:latest
 ```
 
 # NOTE
