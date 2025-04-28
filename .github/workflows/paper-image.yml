@@ -68,6 +68,13 @@ jobs:
           sudo apt install -y \
             podman
 
+      - name: Decrypt Signing Key
+        if: github.event_name != 'pull_request'
+        env:
+          MELANGE_BASE64: ${{ secrets.MELANGE_BASE64 }}
+        run: |
+          echo $MELANGE_BASE64 | base64 --decode > melange.rsa
+
       - name: Build Package and Container
         id: build_image
         run: |

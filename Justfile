@@ -1,7 +1,7 @@
 build $package="":
     podman run \
         --rm -it -v "${PWD}:/work:Z" --privileged \
-        cgr.dev/chainguard/melange build "packages/${package}.yaml" --arch host
+        cgr.dev/chainguard/melange build "packages/${package}.yaml" --arch host --signing-key melange.rsa
 
 build-container $package="" $import="1":
     #!/usr/bin/env bash

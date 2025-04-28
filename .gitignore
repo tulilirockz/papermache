@@ -4,3 +4,4 @@ packages/aarch64
 *.json
 *.tar
 *.key
+*.base64
