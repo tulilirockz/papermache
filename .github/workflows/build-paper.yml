@@ -30,7 +30,7 @@ concurrency:
 
 jobs:
   build:
-    uses: ./.github/workflows/reusable-build-image.yml
+    uses: ${{ github.workspace }}/.github/workflows/reusable-image.yml
     secrets: inherit
     with:
       image-name: paper
