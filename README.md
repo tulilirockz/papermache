@@ -3,7 +3,8 @@
         <source srcset="https://github.com/user-attachments/assets/5b655bcb-f529-4580-ad43-607b11cf5a1b" media="(prefers-color-scheme: dark)">
         <img src="https://github.com/user-attachments/assets/fd7a35df-5ac9-4605-8f0c-5ad565f5f5bf">
     </picture>
-    <a href="https://github.com/tulilirockz/papermache/actions/workflows/paper-image.yml"><img src="https://github.com/tulilirockz/papermache/actions/workflows/paper-image.yml/badge.svg" alt="Build Status" /></a>
+    <a href="https://github.com/tulilirockz/papermache/actions/workflows/build-paper.yml"><img src="https://github.com/tulilirockz/papermache/actions/workflows/build-paper.yml/badge.svg" alt="Build Status for Paper" /></a>
+    <a href="https://github.com/tulilirockz/papermache/actions/workflows/build-folia.yml"><img src="https://github.com/tulilirockz/papermache/actions/workflows/build-folia.yml/badge.svg" alt="Build Status for Folia" /></a>
     <a href="https://github.com/tulilirockz/papermache/main/LICENSE.md"><img src="https://img.shields.io/github/license/atomic-studio-org/Atomic-Studio?style=plastic&style=social" alt="Image License: APACHE 2.0"/></a>
 </div>
 <hr/>
@@ -29,7 +30,7 @@ anything similar to this in the wild, so I made this project!
 
 ## TODO
 - [ ] Templating for multiple PaperMC versions
-- [ ] Folia package
+- [ ] Official MC server package
 - [ ] Use Renovate for everything
 
 ## Usage

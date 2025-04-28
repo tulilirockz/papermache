@@ -1,4 +1,4 @@
-name: Build Paper image
+name: Build Folia image
 
 on:
   workflow_dispatch:
@@ -6,14 +6,14 @@ on:
     branches:
       - main
     paths:
-      - 'containers/paper*'
-      - 'packages/paper*'
+      - 'containers/folia*'
+      - 'packages/folia*'
   push:
     branches:
       - main
     paths:
-      - 'containers/paper*'
-      - 'packages/paper*'
+      - 'containers/folia*'
+      - 'packages/folia*'
   schedule:
     - cron: '0 0 * * TUE'
 
@@ -31,7 +31,7 @@ jobs:
     uses: ./.github/workflows/reusable-image.yml
     secrets: inherit
     with:
-      image-name: paper
-      image-title: Paper
-      image-desc: Paper MC images built for supply chain security
-      default-tag: 1.21.4
+      image-name: folia
+      image-title: Folia
+      image-desc: Folia MC images built for supply chain security (EXPERIMENTAL)
+      default-tag: 1.24.1

@@ -1,0 +1,27 @@
+contents:
+  keyring:
+    - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    - ./melange.rsa.pub
+  repositories:
+    - https://packages.wolfi.dev/os
+    - '@local /work/packages'
+  packages:
+    - ca-certificates-bundle
+    - folia@local
+    - findutils
+
+# This is meant to run with volumes, not binding directories
+accounts:
+  groups:
+    - groupname: nonroot
+      gid: 10000
+  users:
+    - username: nonroot
+      uid: 10000
+      shell: /bin/sh
+  run-as: nonroot
+
+work-dir: /data
+
+entrypoint:
+  command: find /usr/share/java/folia/ -iname 'folia-bundler*.jar' -exec /usr/bin/java -jar {} ';'

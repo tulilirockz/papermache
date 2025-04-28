@@ -10,6 +10,10 @@ on:
         description: "The description of the image to build"
         required: true
         type: string
+      image-title:
+        description: "The title of the image to build"
+        required: true
+        type: string
       platforms:
         description: "The platforms to build the image for"
         required: false
@@ -27,6 +31,7 @@ on:
 env:
   IMAGE_NAME: ${{ inputs.image-name }}
   IMAGE_DESC: ${{ inputs.image-desc }}
+  IMAGE_TITLE: ${{ inputs.image-title }}
   IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"
   DEFAULT_TAG: ${{ inputs.default-tag }}
   PLATFORMS: ${{ inputs.platforms }}
@@ -233,7 +238,7 @@ jobs:
             org.opencontainers.image.description=${{ env.IMAGE_DESC }}
             org.opencontainers.image.documentation=https://raw.githubusercontent.com/${{ github.repository_owner }}/papermache/refs/heads/main/README.md
             org.opencontainers.image.source=https://github.com/${{ github.repository_owner }}/papermache/blob/main/Containerfile
-            org.opencontainers.image.title=Paper
+            org.opencontainers.image.title=${{ env.IMAGE_TITLE }}
             org.opencontainers.image.url=https://github.com/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
             org.opencontainers.image.vendor=${{ github.repository_owner }}
             org.opencontainers.image.version=${{ env.DEFAULT_TAG }}

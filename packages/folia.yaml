@@ -1,0 +1,49 @@
+package:
+  name: folia
+  version: 1.21.4
+  epoch: 0
+  description: Minecraft game server based on Spigot
+  copyright:
+    - license: GPL-3.0-only AND MIT
+  dependencies:
+    runtime:
+      - openjdk-21-default-jvm
+
+environment:
+  contents:
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+      - ./melange.rsa.pub
+    repositories:
+      - https://packages.wolfi.dev/os
+    packages:
+      - build-base
+      - busybox
+      - ca-certificates-bundle
+      - gradle
+      - openjdk-21-default-jdk
+  environment:
+    JAVA_HOME: /usr/lib/jvm/default-jvm
+
+pipeline:
+  - uses: git-checkout
+    with:
+      repository: https://github.com/PaperMC/Folia
+
+  - name: Build Folia
+    runs: |
+      set -euo pipefail
+      # Spoof git configuration
+      git config --global user.name "Linky"
+      git config --global user.email "linky@wolfi.dev"
+      ./gradlew applyPatches
+      ./gradlew createMojmapBundlerJar
+
+  - name: Install
+    runs: |
+      dest="${{targets.contextdir}}/usr/share/java/${{package.name}}"
+      mkdir -p "$dest"
+
+      install -Dm0644  -t "${dest}" ./PATCHES-LICENSE
+      install -Dm0644  -t "${dest}" ./README.md
+      find . -iname "${{package.name}}-*.jar" -exec install -Dm0644 -t "${dest}" {} ';'
