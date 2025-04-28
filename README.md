@@ -1,15 +1,21 @@
-# PaperMache
+<div align="center">
+    <picture>
+        <source srcset="https://github.com/user-attachments/assets/5b655bcb-f529-4580-ad43-607b11cf5a1b" media="(prefers-color-scheme: dark)">
+        <img src="https://github.com/user-attachments/assets/fd7a35df-5ac9-4605-8f0c-5ad565f5f5bf">
+    </picture>
+    <a href="https://github.com/tulilirockz/papermache/actions/workflows/paper-image.yml"><img src="https://github.com/tulilirockz/papermache/actions/workflows/paper-image.yml/badge.svg" alt="Build Status" /></a>
+    <a href="https://github.com/tulilirockz/papermache/main/LICENSE.md"><img src="https://img.shields.io/github/license/atomic-studio-org/Atomic-Studio?style=plastic&style=social" alt="Image License: APACHE 2.0"/></a>
+</div>
+<hr/>
 
 Some actually pretty good PaperMC OCI images.
-
-![Finally some good food](https://64.media.tumblr.com/e02c5bfb47338a49e6e9228475869fc7/tumblr_pah89p3xWV1tn6k7ro1_1280.pnj)
-<sub>(Art made by [midori-n](https://www.tumblr.com/midori-n) on Tumblr)</sub>
 
 These images are built with Chainguard's
 [apko/melange](https://edu.chainguard.dev/open-source/build-tools/melange/getting-started-with-melange/)
 tooling, based on [Wolfi](https://github.com/wolfi-dev). We provide SBOMs,
 proper signing, and a very minimal container so your runtime isnt cluttered by
-vulnerabilities.
+vulnerabilities. This is also meant to have a very tight scope, we dont want to
+manage your minecraft server installation at all, just deliver you a secure container.
 
 Just know that sadly these builds are very much non deterministic due to
 Paper's nature of patching official JARs straight from Mojang
@@ -23,9 +29,10 @@ anything similar to this in the wild, so I made this project!
 
 ## TODO
 - [ ] Templating for multiple PaperMC versions
-- [ ] Folia package?
-- [ ] Working! workflows
-
+- [ ] Folia package
+- [ ] Publish SBOMs
+- [ ] Publish Licenses w/ Grype
+- [ ] Publish trivvy analytics
 
 ## Usage
 
@@ -41,10 +48,9 @@ services:
     ports:
       - 25565:25565
     volumes:
-      - minecraft:/data
+      - minecraft:/data:Z
 volumes:
   minecraft:
-    external: true
 ```
 
 ## Building locally
