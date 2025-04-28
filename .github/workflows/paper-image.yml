@@ -20,7 +20,7 @@ env:
   IMAGE_NAME: paper
   IMAGE_DESC: "Paper MC images built for supply chain security"
   IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"
-  DEFAULT_TAG: "latest"
+  DEFAULT_TAG: "1.24.1"
   PLATFORMS: "amd64,arm64"
 
 jobs:
@@ -77,10 +77,12 @@ jobs:
 
       - name: Build Package and Container
         id: build_image
+        env:
+          PLATFORM: ${{ matrix.platform }}
         run: |
           just build paper
           just build-container paper
-          podman tag docker.io/library/paper:latest-$(arch) ${{ env.IMAGE_REGISTRY }}/${IMAGE_NAME}:${DEFAULT_TAG}
+          podman tag docker.io/library/paper:latest-$PLATFORM ${{ env.IMAGE_REGISTRY }}/${IMAGE_NAME}:${DEFAULT_TAG}
 
       - name: Login to GHCR
         if: github.event_name != 'pull_request'
@@ -204,20 +206,19 @@ jobs:
             type=raw,value=latest
             type=ref,event=pr
           labels: |
-            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/refs/heads/main/README.md
+            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/${{ github.repository_owner }}/papermache/refs/heads/main/README.md
             org.opencontainers.image.created=${{ steps.date.outputs.date }}
             org.opencontainers.image.description=${{ env.IMAGE_DESC }}
-            org.opencontainers.image.documentation=https://raw.githubusercontent.com/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/refs/heads/main/README.md
-            org.opencontainers.image.source=https://github.com/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/blob/main/Containerfile
-            org.opencontainers.image.title=${{ env.IMAGE_NAME }}
+            org.opencontainers.image.documentation=https://raw.githubusercontent.com/${{ github.repository_owner }}/papermache/refs/heads/main/README.md
+            org.opencontainers.image.source=https://github.com/${{ github.repository_owner }}/papermache/blob/main/Containerfile
+            org.opencontainers.image.title=Paper
             org.opencontainers.image.url=https://github.com/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
             org.opencontainers.image.vendor=${{ github.repository_owner }}
             org.opencontainers.image.version=${{ env.DEFAULT_TAG }}
             io.artifacthub.package.deprecated=false
-            io.artifacthub.package.keywords=ublue,universal-blue,copr,fedora
+            io.artifacthub.package.keywords=minecraft,papermc,chainguard,wolfi
             io.artifacthub.package.license=Apache-2.0
-            io.artifacthub.package.logo-url=https://avatars.githubusercontent.com/u/120078124?s=200&v=4
-            io.artifacthub.package.maintainers=[{\"name\":\"tulilirockz\",\"email\":\"tulilirockz@outlook.com\"}]
+            io.artifacthub.package.maintainers=[{\"name\":\"tulilirockz\",\"email\":\"tulilirockz@proton.me\"}]
 
       - name: Fetch Build Outputs
         if: github.event_name != 'pull_request'
