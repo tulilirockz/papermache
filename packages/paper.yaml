@@ -1,6 +1,6 @@
 package:
   name: paper
-  version: 1.21.4
+  version: 1.21.7
   epoch: 0
   description: Minecraft game server based on Spigot
   copyright:

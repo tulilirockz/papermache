@@ -34,4 +34,4 @@ jobs:
       image-name: paper
       image-title: Paper
       image-desc: Paper MC images built for supply chain security
-      default-tag: 1.21.4
+      default-tag: 1.21.7
