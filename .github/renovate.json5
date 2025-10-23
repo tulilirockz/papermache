@@ -1,13 +1,17 @@
 {
-  "extends": ["config:best-practices"],
-  "customManagers": [
+  extends: [
+    'config:best-practices',
+  ],
+  customManagers: [
     {
-      "customType": "regex",
-      "fileMatch": [".*\\.yaml"],
-      "matchStrings": [
-        "#\\s?renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( extractVersion=(?<extractVersion>.*?))?\\s*version:\\s*(?<currentValue>.*)\\s"
+      customType: 'regex',
+      managerFilePatterns: [
+        '/.*\\.yaml/',
       ],
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+      matchStrings: [
+        '#\\s?renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( extractVersion=(?<extractVersion>.*?))?\\s*version:\\s*(?<currentValue>.*)\\s',
+      ],
+      versioningTemplate: '{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}',
     },
   ],
 }
